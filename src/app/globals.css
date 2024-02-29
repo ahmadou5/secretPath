@@ -16,6 +16,54 @@
   }
 }
 
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+img {
+  max-width: 190px;
+  margin-left: 17px;
+  margin-right: 17px;
+  height: 8rem;
+  padding: 0 15px;
+  object-fit: cover;
+}
+
+img:last-of-type {
+  padding-left: 0;
+}
+
+.inner {
+  background-color: tra;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 8rem;
+  border-radius: 0px;
+}
+
+.wrapper {
+  background-color: transparent;
+  position: absolute;
+  display: flex;
+}
+
+section {
+  display: flex;
+  animation: swipe var(--speed) linear infinite backwards;
+}
+
+@keyframes swipe {
+  0% {
+    transform: translate(0);
+  }
+
+  100% {
+    transform: translate(-100%);
+  }
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
