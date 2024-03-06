@@ -54,7 +54,7 @@ section {
 
 body {
   color: rgb(var(--foreground-rgb));
-  
+  background: black;
 }
 
 @layer utilities {
