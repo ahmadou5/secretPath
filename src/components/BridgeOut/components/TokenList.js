@@ -2,29 +2,67 @@ import { GlobalContext } from "@/context/context"
 import { useState } from "react"
 
 export const TokenList = () => {
-    const {setIsTokenList} = GlobalContext()
+    const {setIsTokenList, setTokenName, setTokenType, setTokenAddress} = GlobalContext()
     const [search,setSearch] = useState('')
 
     const tokens = [
         {
+            name: 'SCRT',
+            address: '0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05',
+            type: 'ERC20',
+            chain: 'Secret'
+
+        },
+        {
+            name: 'SCRT',
+            address: '0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05',
+            type: 'ERC20',
+            chain: 'SEP'
+        },
+        {
+            name: 'SCRT',
+            address: 'fygkrgtdsk',
+            type: 'ERC20',
+            chain: 'BNB'
+
+        },
+        {
+            name: 'SCRT',
+            address: 'fygkrgtdsk',
+            type: 'ERC20',
+            chain: 'BASE'
+
+        },
+        {
             name: 'USDT',
             address: 'fygkrgtdsk',
             type: 'ERC20',
+            chain: 'Secret'
+        },
+        {
+            name: 'USDT',
+            address: 'fygkrgtdsk',
+            type: 'ERC20',
+            chain: 'SEP'
+        
 
         },
         {
-            name: 'BUSD',
+            name: 'USDT',
             address: 'fygkrgtdsk',
             type: 'ERC20',
+            chain: 'BNB'
 
         },
         {
-            name: 'BNB',
+            name: 'USDT',
             address: 'fygkrgtdsk',
             type: 'ERC20',
+            chain: 'BASE'
 
-        }
+        },  
     ]
+    
     return(
     <div className="inset-0 fixed bg-black/15 bg-opacity-100 w-[100%] z-[99999999] min-h-screen h-auto backdrop-blur-sm flex ">
         <div className="lg:h-[600px] h-auto w-[80%] lg:w-[30%] py-3 px-3 mb-20 mt-16 drop-shadow-glow2 bg-black/65 rounded-3xl ml-auto mr-auto">
@@ -46,13 +84,15 @@ export const TokenList = () => {
                    <>
                    <div key={i}>
                    <div onClick={() => {
-                        setOutReceiverChain(chain.name);
-                        setIsList(false);
-                        alert('sender chain is',chain.name)
+                        setTokenName(chain.name);
+                        setTokenAddress(chain.address)
+                        setTokenType(chain.type)
+                        setIsTokenList(false);
+                        // alert('Token is',chain.name)
                      }} className="drop-shadow-glow2 bg-white/10 py-2 px-2 flex-col flex cursor-pointer mt-0.5 h-20 w-[100%] rounded-xl">
                          <div className="py-1 px-2 flex h-10"> 
                             <div className="ml-2 mr-auto">{chain.name}</div>
-                            <div className="ml-auto mr-2">{`${chain.type}`}</div>
+                            <div className="ml-auto mr-2">{`${chain.chain}`}</div>
                          </div>
                          <div className="ml-2 py-1 px-2 h-10">
                             {'18'}

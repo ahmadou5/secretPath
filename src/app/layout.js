@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={rock.className}>
+      <body className={`${rock.className} bg-black`}>
         <SecretContextProvider>
           <EthProvider>
           {children}

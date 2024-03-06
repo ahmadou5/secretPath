@@ -5,7 +5,7 @@ import { useState } from "react"
 
 export const Chainlist3 = () => {
     const [search, setSearch] = useState('')
-    const {setIsList,inSenderChain,setInSenderChain} = GlobalContext()
+    const {setIsList,inSenderChain,setInSenderChain, setChainId} = GlobalContext()
     const chains = config?.chains
    
     return(
@@ -30,8 +30,9 @@ export const Chainlist3 = () => {
                    <div key={i}>
                      <div onClick={() => {
                         setInSenderChain(chain.name);
+                        setChainId(chain.id)
                         setIsList(false);
-                        alert('sender chain is',chain.name)
+                       //  alert('sender chain is',chain.name)
                      }} className="drop-shadow-glow2 bg-white/10 py-2 px-2 flex-col flex cursor-pointer mt-0.5 h-20 w-[100%] rounded-xl">
                          <div className="py-1 px-2 flex h-10"> 
                             <div className="ml-2 mr-auto">{chain.name}</div>

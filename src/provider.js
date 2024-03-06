@@ -12,6 +12,8 @@ import {
   opBNBTestnet,
   bscTestnet,
   optimismSepolia,
+  polygonZkEvmTestnet,
+  zoraSepolia,
   optimismGoerli,
   sepolia,
   baseGoerli,
@@ -27,15 +29,17 @@ import {
 export const config = getDefaultConfig({
   appName: 'Secret Dapp',
   projectId: 'fa7b299471fa848b2dc52a5e1529ac37',
-  chains: [ x1Testnet,
-    zetachainAthensTestnet,
-    opBNBTestnet,
-    bscTestnet,
-    optimismSepolia,
-    optimismGoerli,
+  chains: [ // x1Testnet,
+    // zetachainAthensTestnet,
     sepolia,
+    // opBNBTestnet,
+    bscTestnet,
     baseGoerli,
-    polygonMumbai],
+    // optimismSepolia,
+    //optimismGoerli,
+    //polygonZkEvmTestnet,
+    // polygonMumbai
+  ],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });
 
