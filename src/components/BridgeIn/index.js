@@ -1,5 +1,11 @@
 'use client'
 import { GlobalContext } from "@/context/context"
+import { useEthersSigner, useEthersProvider } from "@/Hooks/useEthers"
+import { BrowserProvider, JsonRpcSigner } from 'ethers'
+import { useMemo } from 'react'
+import { Account, Chain, Client, Transport } from 'viem'
+import { Config, useConnectorClient } from 'wagmi'
+import {  useClient } from 'wagmi'
 import { Chainselect } from "./components/ChainSelect"
 import { Receiver } from "./components/Receiver"
 import { Tokenselect } from "./components/TokenSelect"
@@ -7,19 +13,111 @@ import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { FiArrowDownLeft } from "react-icons/fi";
 import { SecretNetworkClient } from "secretjs"
 import { formatAddress } from "@/config/format"
-import { useAccount } from "wagmi"
+import { useAccount} from "wagmi"
 import { useEffect } from "react"
 import { Chainlist3 } from "./components/Chainlist3"
 import { TokenList } from "../BridgeOut/components/TokenList"
+import { AxelarAssetTransfer, CHAINS, Environment, AxelarQueryAPI , SendTokenParams } from "@axelar-network/axelarjs-sdk";
+import { ethers, Wallet } from "ethers";
+import { Generated } from "./components/Generated"
+
 export const BridgeIn = () => {
-    const {isBridgeIn, setIsBridgeIn, setAddress, isList, isTokenList, keplrAddress, setKeplrAddress} = GlobalContext()
+    
+    const api = new AxelarAssetTransfer({ environment: Environment.TESTNET });
+    const getSigner = () => {
+      const privateKey = '0x4c7e57ba369c292817175be9a973ee207b4645d380b51b323dcfd03b98a1ad2e';
+      return new Wallet(privateKey);
+    };
+    const getUrl = (id) => {
+      if(id === 11155111 ) {
+        'https://eth-sepolia.public.blastapi.io'
+      }
+      if(id === 80001) {
+        'https://polygon-testnet.public.blastapi.io'
+      }
+    }
+    const {isBridgeIn, chainId, setIsBridgeIn, setBridgeFeeAmount, isGenerated, generatedAddress, setGeneratedAddress,  setIsGenerated, bridgeAmount, setAddress, tokenName, isList, isTokenList, keplrAddress, setKeplrAddress} = GlobalContext()
     const { address:userAddress } = useAccount()
+  
+    const provider = new ethers.providers.JsonRpcProvider('https://eth-sepolia.public.blastapi.io')
+     // new ethers.providers.JsonRpcSigner(provider, userAddress)
     const handleAdd = () => {
       if(userAddress) {
         setAddress(userAddress);
       } else {
         console.log('not connceted to shit')
       }
+    }
+    const getCorrect = (id) => {
+      if(id === 11155111) {
+        return CHAINS.TESTNET.SEPOLIA
+      }
+      if(id === 80001) {
+        return CHAINS.TESTNET.POLYGON
+      }
+    }
+    const getFee = async () => {
+      const axelarQuery = new AxelarQueryAPI({
+        environment: Environment.TESTNET,
+      });
+    
+      const fee = await axelarQuery.getTransferFee(
+        getCorrect(chainId),
+        'secret-snip-3',
+        "uausdc",
+        1000000
+      );
+      console.log(fee)
+      setBridgeFeeAmount(fee?.fee.amount)
+      // returns  { fee: { denom: 'uausdc', amount: '150000' } }
+    }
+
+    const generateDeposit = async () => {
+      if(!userAddress) {
+       
+      }
+      try {
+        const sdk = new AxelarAssetTransfer({ environment: "testnet" });
+
+        const fromChain = getCorrect(chainId),
+          toChain = 'secret-snip-3',
+          destinationAddress = keplrAddress,
+          asset = "uausdc";
+
+        const depositAddress = await sdk.getDepositAddress({
+          fromChain,
+          toChain,
+          destinationAddress,
+          asset,
+        });
+        await setGeneratedAddress(depositAddress);
+        console.log(depositAddress)
+      } catch (error) {
+        console.log("generate Error", error);
+      }
+    };
+
+    const SendToSecret = async () => {
+      alert('clicked')
+      const signer = getSigner().connect(provider)
+      const requestOptions = {
+        fromChain: CHAINS.TESTNET.SEPOLIA,
+        toChain: CHAINS.TESTNET.AVALANCHE,
+        destinationAddress: keplrAddress,
+        asset: { symbol: tokenName },
+        amountInAtomicUnits: '50',
+        options: {
+          evmOptions: {
+            signer,
+            provider,
+            txOptions: null,
+            approveSendForMe: true,
+          },
+        },
+      }
+      console.log('done')
+      return (await api.sendToken(requestOptions)).then((data)=> console.log(data));
+      
     }
     const handleKeplr = async  () => {
         if(!window.keplr) {
@@ -175,7 +273,16 @@ export const BridgeIn = () => {
                        <Receiver />
                     </div>
                     <div className="w-[95%] ml-auto  flex rounded-2xl mr-auto mt-[60px] drop-shadow-lg h-[215px]">
-                      <button className="w-[370px] text-xl ml-auto mr-auto bg-blue-600/50 h-10 drop-shadow-glow2  rounded-3xl">Bridge</button>
+                      <button onClick={() => {
+                        if(userAddress) {
+                          getFee()
+                          setIsGenerated(true)
+                          generateDeposit();
+                        }
+                        alert('Metamask not connected!!')
+                        
+                        
+                      }} className="w-[370px] text-xl ml-auto mr-auto bg-blue-600/50 h-10 drop-shadow-glow2  rounded-3xl">Generate Deposit Address</button>
                     </div>
                 </div>
             </div>
@@ -183,6 +290,7 @@ export const BridgeIn = () => {
         </div>
         {isList && <Chainlist3 />}
         {isTokenList && <TokenList />}
+        {isGenerated && <Generated />}
     </div>
     )
 }

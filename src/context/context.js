@@ -7,19 +7,23 @@ export const secretContext = createContext({});
 export const SecretContextProvider = ({children}) => {
     const [isBridgeIn, setIsBridgeIn] = useState(true);
     const [keplrAddress, setKeplrAddress] = useState('');
-    const [inSenderChain,setInSenderChain] = useState('BNB');
-    const [OutReceiverChain,setOutReceiverChain] = useState('BNB');
-    const [tokenName,setTokenName] = useState('SCRT');
+    const [inSenderChain,setInSenderChain] = useState('Sepolia');
+    const [OutReceiverChain,setOutReceiverChain] = useState('Sepolia');
+    const [isGenerated, setIsGenerated] = useState(false);
+    const [genratedAddress, setGeneratedAddress] = useState('');
+    const [genratedAddressK, setGeneratedAddressK] = useState('');
+    const [isGeneratedK, setIsGeneratedK] = useState(true);
+    const [tokenName,setTokenName] = useState('aUSDC');
     const [tokenType,setTokenType] = useState('ERC20');
     const [tokenBalance,setTokenBalance] = useState(0);
-    const [tokenAddress,setTokenAddress] = useState('0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05');
-    const [chainId, setChainId] = useState(97)
+    const [tokenAddress,setTokenAddress] = useState('0x254d06f33bDc5b8ee05b2ea472107E300226659A');
+    const [chainId, setChainId] = useState(11155111)
     const [isList, setIsList] = useState(false)
     const [isTokenList, setIsTokenList] = useState(false)
     const [address, setAddress] = useState('');
     const [bridgeAmount, setBridgeAmount] = useState(0)
     const [balanceSCRT, setBalanceSCRT] = useState(100)
-    const [bridgeFeeAmount, setBridgeFeeAmount] = useState(1.5)
+    const [bridgeFeeAmount, setBridgeFeeAmount] = useState(0.15)
     const value = {
         isBridgeIn,
         keplrAddress,
@@ -36,6 +40,14 @@ export const SecretContextProvider = ({children}) => {
         tokenType,
         tokenBalance,
         tokenAddress,
+        isGenerated,
+        genratedAddress, 
+        genratedAddressK,
+        isGeneratedK, 
+        setIsGeneratedK,
+        setGeneratedAddressK,
+        setGeneratedAddress,
+        setIsGenerated,
         setTokenAddress,
         setTokenBalance,
         setTokenType,

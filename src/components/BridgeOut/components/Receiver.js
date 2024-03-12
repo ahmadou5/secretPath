@@ -1,6 +1,8 @@
 import { GlobalContext } from "@/context/context"
 import { formatAddress } from "@/config/format"
+import { useAccount } from "wagmi"
 export const Receiver = () => {
+    const { address: userAddress } = useAccount()
     const { address, bridgeAmount, bridgeFeeAmount, keplrAddress} = GlobalContext()
     return(
       <div className="w-[100%] h-[100%] py-1 px-1 bg-black/70 rounded-2xl">
@@ -19,7 +21,7 @@ export const Receiver = () => {
                 <div className="ml-0 font-semibold mr-auto">To:</div>
               </div>
               <div type="text" placeholder="Enter Amount"  className="h-7 mr-2 ml-2 outline-none mb-0.5 w-[60%] bg-transparent " >
-                {address && formatAddress(address)}
+                {userAddress && formatAddress(userAddress)}
               </div>
           </div>
           <div className="w-[98%] flex ml-auto mr-auto h-8 py-1 px-2 mt-1 mb-1">

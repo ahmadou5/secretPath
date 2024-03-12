@@ -1,6 +1,6 @@
 const Scroller = ({ images, speed = 5000 }) => {
   return (
-    <div className="inner">
+    <div className="inner w-full ml-auto mr-auto">
       <div className="wrapper">
         <section style={{ "--speed": `${speed}ms` }}>
           {images.map(({ id, image }) => (

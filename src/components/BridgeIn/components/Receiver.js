@@ -1,8 +1,9 @@
 import { GlobalContext } from "@/context/context"
+import { parseEther} from "viem"
 import { useAccount } from "wagmi"
 import { formatAddress } from "@/config/format"
 export const Receiver = () => {
-  const { keplrAddress, bridgeAmount, bridgeFeeAmount  } = GlobalContext()
+  const { keplrAddress, bridgeAmount, bridgeFeeAmount,  inSenderChain } = GlobalContext()
   const { address} = useAccount()
     return(
       <div className="w-[100%] h-[100%] py-1 px-1 bg-black/70 rounded-2xl">
@@ -37,7 +38,7 @@ export const Receiver = () => {
                 <div className="ml-0 font-semibold mr-auto">Bridge Route:</div>
               </div>
               <div type="text" placeholder="Enter Amount"  className="h-7 mr-2 ml-0 outline-none mb-0.5 w-[60%] bg-transparent " >
-                {'secret > BNB'}
+                {`${inSenderChain} - Secret`}
               </div>
           </div>
           <div className="w-[98%] flex ml-auto mr-auto h-8 py-1 px-2 mt-1 mb-1">
@@ -45,7 +46,7 @@ export const Receiver = () => {
                 <div className="ml-0 font-semibold mr-auto">Bridge Fee:</div>
               </div>
               <div type="text" placeholder="Enter Amount"  className="h-7 outline-none mr-2 ml-0 mb-0.5 w-[60%] bg-transparent " >
-                {bridgeFeeAmount}
+                {`${bridgeFeeAmount}-gwei`}
               </div>
           </div>
       </div>

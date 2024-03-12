@@ -37,11 +37,11 @@ export const Secret = () => {
           
         </div>
         <p className="  mt-[0px] mb-[190px] text-4xl text-center lg:text-5xl font-extrabold ml-auto mr-auto lg:mt-7">Buidl for HackSecret Africa Hackerthon</p>
-        <div className="mt-[60px] mb-[230px] py-6 px-6   h-[120px] w-[80%] ml-auto mr-auto ">
+        <div className="mt-[60px] mb-[230px] py-6 px-6   h-[120px] w-[95%] lg:w-[80%] ml-auto mr-auto ">
         <p className=" ml-auto mt-[320px] mb-[190px] text-2xl text-center lg:text-5xl font-extrabold lg:mt-7">Supported Networks</p>
            <Scroller images={images} speed={12000} />
         </div>
-        <div className="mt-[170px] mb-28">
+        <div className="mt-[370px] lg:mt-[300px] mb-28">
             <Subscribe />
         </div>
         <Footer />

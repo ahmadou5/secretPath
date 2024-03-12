@@ -1,7 +1,17 @@
+'use client'
 import { GlobalContext } from "@/context/context";
+import { useBalance, useChainId , useAccount } from "wagmi";
 import { IoMdArrowDropdown } from "react-icons/io";
 export const Tokenselect = () => {
-    const { bridgeAmount,setIsTokenList ,setBridgeAmount, tokenName, balanceSCRT} = GlobalContext()
+  const { bridgeAmount,setIsTokenList, chainId ,setBridgeAmount, tokenName, tokenAddress, balanceSCRT} = GlobalContext()
+  const { id } = useChainId()
+  const { address} = useAccount()
+  const { data } = useBalance({
+    address:address,
+    token:tokenAddress,
+    chainId: chainId,
+  })
+  console.log(data)
     return(
     <div className="w-[100%] h-[100%] py-3 px-3 bg-black/70 rounded-2xl">
         <div className="flex flex-col w-full text-center ml-auto mr-auto">
@@ -17,7 +27,7 @@ export const Tokenselect = () => {
             </div>
             <div className="w-[98%] mt-1 flex  ml-auto mr-auto h-6 mb-1 ">
                 <div className="ml-4 mr-7 font-extrabold text-xl">Balance :</div>
-                <div className="mr-5 text-xl">{`${balanceSCRT} ${tokenName} ($US ${6})`}</div>
+                <div className="mr-5 text-xl">{`${data?.value === undefined ? 'select token' : data?.formatted} ${tokenName} `}</div>
             </div>
         </div>
     </div>

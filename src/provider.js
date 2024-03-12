@@ -33,12 +33,12 @@ export const config = getDefaultConfig({
     // zetachainAthensTestnet,
     sepolia,
     // opBNBTestnet,
-    bscTestnet,
-    baseGoerli,
+    //bscTestnet,
+    //baseGoerli,
     // optimismSepolia,
     //optimismGoerli,
     //polygonZkEvmTestnet,
-    // polygonMumbai
+    polygonMumbai
   ],
   ssr: true, // If your dApp uses server side rendering (SSR)
 });

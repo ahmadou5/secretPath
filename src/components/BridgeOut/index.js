@@ -1,16 +1,68 @@
 'use client'
 import { GlobalContext } from "@/context/context"
+import { useAccount } from "wagmi"
 import { ChainselectO } from "./components/ChainSelectO"
 import { Receiver } from "./components/Receiver"
 import { Tokenselect } from "./components/TokenSelect"
-
+import { AxelarAssetTransfer, CHAINS, Environment, AxelarQueryAPI , SendTokenParams } from "@axelar-network/axelarjs-sdk";
 import { FiArrowUpRight } from "react-icons/fi";
 import { formatAddress } from "@/config/format"
 import { Chainlist2 } from "./components/Chainlist2"
 import { TokenList } from "./components/TokenList"
+import { GeneratedK } from "./components/GeneratedS"
 export const BridgeOut = () => {
+    const { address:userAddress } = useAccount()
+    const {isBridgeIn, chainId, isList,isTokenList, tokenName,isGeneratedK ,setIsGeneratedK, genratedAddressK, setBridgeFeeAmount, setGeneratedAddressK,  setIsBridgeIn, address, bridgeAmount, bridgeFeeAmount, keplrAddress} = GlobalContext()
+    const queryConfig = {
+        environment: Environment.TESTNET
+      }
+      const api = new AxelarQueryAPI(queryConfig);
     
-    const {isBridgeIn, isList,isTokenList, setIsBridgeIn, address, bridgeAmount, bridgeFeeAmount, keplrAddress} = GlobalContext()
+      async function getDenom() {
+        const denoms = await api.getDenomFromSymbol(tokenName, "secret-snip-3");
+        console.log("denom: ",denoms);
+        return denoms;
+      }
+      const getFee = async () => {
+        const axelarQuery = new AxelarQueryAPI({
+          environment: Environment.TESTNET,
+        });
+      
+        const fee = await axelarQuery.getTransferFee(
+          'secret-snip-3',
+          getCorrect(chainId),
+          "uausdc",
+          1000000
+        );
+        console.log(fee)
+        setBridgeFeeAmount(fee?.fee.amount)
+        // returns  { fee: { denom: 'uausdc', amount: '150000' } }
+      }
+    const getCorrect = (id) => {
+        if(id === 11155111) {
+          return CHAINS.TESTNET.SEPOLIA
+        }
+        if(id === 80001) {
+          return CHAINS.TESTNET.POLYGON
+        }
+      }
+    const generateDeposit = async () => {
+        const sdk = new AxelarAssetTransfer({ environment: "testnet" });
+
+        const fromChain = 'secret-snip-3',
+          toChain = getCorrect(chainId),
+          destinationAddress = userAddress,
+          asset = "uausdc"; // denom of asset. See note (2) below
+
+        const depositAddress = await sdk.getDepositAddress({
+          fromChain,
+          toChain,
+          destinationAddress,
+          asset,
+        });
+        console.log(depositAddress)
+        setGeneratedAddressK(depositAddress)
+      };
     return(
     <div>
         <div className=" w-full flex items-center flex-col h-16">
@@ -52,7 +104,11 @@ export const BridgeOut = () => {
                        <Receiver />
                     </div>
                     <div className="w-[95%] ml-auto  flex rounded-2xl mr-auto mt-[60px] drop-shadow-lg h-[215px]">
-                      <button className="w-[370px] text-xl ml-auto mr-auto bg-blue-600/50 h-10 drop-shadow-glow2  rounded-3xl">Bridge</button>
+                      <button onClick={() => {
+                        getFee()
+                        setIsGeneratedK(true)
+                        generateDeposit();
+                      }} className="w-[370px] text-xl ml-auto mr-auto bg-blue-600/50 h-10 drop-shadow-glow2  rounded-3xl">Generate Deposit Address</button>
                     </div>
                 </div>
             </div>
@@ -60,6 +116,7 @@ export const BridgeOut = () => {
         </div>
         {isList && <Chainlist2/>}
         {isTokenList && <TokenList/>}
+        {isGeneratedK && <GeneratedK/>}
     </div>
     )
 }

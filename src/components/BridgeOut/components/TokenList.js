@@ -7,60 +7,20 @@ export const TokenList = () => {
 
     const tokens = [
         {
-            name: 'SCRT',
-            address: '0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05',
+            name: 'aUSDC',
+            address: '0x254d06f33bDc5b8ee05b2ea472107E300226659A',
             type: 'ERC20',
-            chain: 'Secret'
+            chain: 'Sepolia'
 
         },
         {
-            name: 'SCRT',
-            address: '0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05',
+            name: 'aUSDC',
+            address: '0x2c852e740B62308c46DD29B982FBb650D063Bd07',
             type: 'ERC20',
-            chain: 'SEP'
-        },
-        {
-            name: 'SCRT',
-            address: 'fygkrgtdsk',
-            type: 'ERC20',
-            chain: 'BNB'
+            chain: 'Mumbai'
 
         },
-        {
-            name: 'SCRT',
-            address: 'fygkrgtdsk',
-            type: 'ERC20',
-            chain: 'BASE'
-
-        },
-        {
-            name: 'USDT',
-            address: 'fygkrgtdsk',
-            type: 'ERC20',
-            chain: 'Secret'
-        },
-        {
-            name: 'USDT',
-            address: 'fygkrgtdsk',
-            type: 'ERC20',
-            chain: 'SEP'
         
-
-        },
-        {
-            name: 'USDT',
-            address: 'fygkrgtdsk',
-            type: 'ERC20',
-            chain: 'BNB'
-
-        },
-        {
-            name: 'USDT',
-            address: 'fygkrgtdsk',
-            type: 'ERC20',
-            chain: 'BASE'
-
-        },  
     ]
     
     return(

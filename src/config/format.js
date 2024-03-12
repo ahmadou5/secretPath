@@ -3,6 +3,10 @@ export const formatAddress = (value) => {
     
     return value.substring(0,10) + "..." + value.substring(value.length -3,);
   }
+  export const formatEthAddress = (value) => {
+    
+    return value.substring(0,18) + "..." + value.substring(value.length -5,);
+  }
   export const formatString = (value) => {
    
     return value.substring(0,28) + "..." + value.substring(value.length -14,);

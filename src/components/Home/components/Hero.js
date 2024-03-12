@@ -1,6 +1,7 @@
 'use client'
 import TypewriterComponent from "typewriter-effect"
 import { Secret } from "./secret"
+import Link from "next/link"
 export const Hero = () => {
     return(
     <div className="w-[50%] ml-auto h-auto  mb-4 mr-auto">
@@ -19,7 +20,9 @@ export const Hero = () => {
             </div>
             
             <div className=" w-[100%] flex mt-[180px] ml-auto mr-auto">
-                <button className="w-[370px] text-xl ml-auto mr-auto bg-blue-600/50 h-12 drop-shadow-glow  rounded-3xl">Launch Bridge</button>
+                <Link className="w-[370px] text-xl ml-auto mr-auto bg-blue-600/50 h-12 drop-shadow-glow  rounded-3xl" href={'/bridge'}>
+                <button className="w-[370px] text-xl ml-auto mr-auto bg-transparent h-12 drop-shadow-glow  rounded-3xl">Launch Bridge</button>
+                </Link>
             </div>
         </div>
         
