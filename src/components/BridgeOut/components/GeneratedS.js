@@ -1,7 +1,7 @@
 import { GlobalContext } from "@/context/context"
 import { formatEther } from "viem"
 import { TailSpin } from "react-loader-spinner"
-import { Link } from "next/link"
+import { Link, LinkProps } from "next/link"
 import { useChains } from "wagmi"
 import { config } from "@/provider"
 import { useState } from "react"
@@ -53,13 +53,13 @@ export const GeneratedK = () => {
                         <div className="w-[80%] mt-[18px] text-center flex lg:text-xl  bg-transparent py-2 px-2 rounded-lg  h-[70px] ml-auto mr-auto">
                            <p>{`Send ${bridgeAmount} of ${tokenName} to this address to bridge, include 0.15 of ${tokenName} as Fee!`}</p>
                            <div className="ml-auto mt-2 mr-auto flex flex-col">
-                            <Link href={`https://testnet.axelarscan.io/account/${genratedAddressK}` } className="flex">
+                            <Link target="_blank" href={`https://testnet.axelarscan.io/account/${genratedAddressK}` } className="flex">
                             <p>view on Axeler Explorer</p>
                             </Link>
                             </div>
                         </div>
                         <div className="w-[95%] ml-auto  flex rounded-2xl mr-auto mt-[30px] drop-shadow-lg h-[215px]">
-                      <button className="w-[370px] text-xl ml-auto mr-auto bg-blue-600/50 h-10 drop-shadow-glow2  rounded-3xl">or Send with Keplr</button>
+                      <button className="w-[370px] text-xl ml-auto mr-auto bg-blue-600/50 h-10 drop-shadow-glow2  rounded-3xl">Send with Keplr Coming Soon!</button>
                     </div>
                         </>
                     }
