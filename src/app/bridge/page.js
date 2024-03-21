@@ -9,7 +9,7 @@ export default function bridge () {
   const {isBridgeIn, setIsBridgeIn} = GlobalContext()
     const bridger = true
     return(
-    <div className="flex min-h-screen flex-col items-center ">
+    <div className="flex min-h-screen text-white/65 flex-col items-center ">
           <Navbar />
           <div className="mt-28 w-[100%]">
           {

@@ -12,7 +12,7 @@ export const SecretContextProvider = ({children}) => {
     const [isGenerated, setIsGenerated] = useState(false);
     const [genratedAddress, setGeneratedAddress] = useState('');
     const [genratedAddressK, setGeneratedAddressK] = useState('');
-    const [isGeneratedK, setIsGeneratedK] = useState(true);
+    const [isGeneratedK, setIsGeneratedK] = useState(false);
     const [tokenName,setTokenName] = useState('aUSDC');
     const [tokenType,setTokenType] = useState('ERC20');
     const [tokenBalance,setTokenBalance] = useState(0);

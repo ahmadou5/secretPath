@@ -53,7 +53,7 @@ export const Generated = () => {
                         <div className="w-[80%] mt-[18px] text-center flex flex-col  lg:text-xl  bg-transparent py-2 px-2 rounded-lg  h-[70px] ml-auto mr-auto">
                            <p>{`Send ${bridgeAmount} of ${tokenName} to this address to bridge, include 0.15 of ${tokenName} as Fee!`}</p>
                             <div className="ml-auto mt-2 mr-auto flex flex-col">
-                            <Link passHref={true} href={`https://testnet.axelarscan.io/account/${genratedAddress}` } className="flex">
+                            <Link target="_blank" href={`https://testnet.axelarscan.io/account/${genratedAddress}` } className="flex">
                             <p>view on Axeler Explorer</p>
                             </Link>
                             </div>
